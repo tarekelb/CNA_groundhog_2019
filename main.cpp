@@ -12,7 +12,7 @@
 void help(char **av)
 {
     if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == 0) {
-        std::cout << "SYNOPSIS\n\t./groundhog period\n\nDESCRIPTION\n\tperiod\t\tthe number of days defining a period\n";
+        std::cout << "SYNOPSIS\n\t./groundhog period\n\nDESCRIPTION\n\tperiod\t\tthe number of days defining a period" << std::endl;
         exit (0);
     }
 }
@@ -32,7 +32,7 @@ void Error(int ac, char **av)
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << " Invalid Conversion" << '\n';
+        std::cerr << e.what() << " Invalid Conversion" << std::endl;
         exit (84);
     }
 }

@@ -48,12 +48,11 @@ void Parser::start()
         try {
             _tempInput.push_back(std::stof(_buff));
         } catch (const std::exception& e) {
-            std::cerr << "The value must be a décimal\n";
+            std::cerr << "The value must be a décimal" << std::endl;
             exit (84);
         }
         Result();
     }
-    std::cout << this->_tempInput.size() << std::endl;
     if (this->_tempInput.size() < _clock)
         exit (84);
     if (_buff != "STOP")
@@ -63,21 +62,21 @@ void Parser::start()
 void Parser::Result() 
 {
     if (_tempInput.size() < _clock)
-        std::cout << "g=nan\tr=nan%\ts=nan\n";
+        std::cout << "g=nan\tr=nan%\ts=nan" << std::endl;
     else {
         this->_rTmp = _r;
         rte();
         GAvegerage();
         StandardDeviation();
         if (this->_checkFirst == true) {
-            if ((this->_rTmp > 0 && this->_r < 0 && this->_checkFirst == true) || (this->_rTmp < 0 && this->_r > 0 && this->_checkFirst == true)) {
-                std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << "\ta switch occurs\n";
+            if ((this->_rTmp >= 0 && this->_r < 0 && this->_checkFirst == true) || (this->_rTmp < 0 && this->_r >= 0 && this->_checkFirst == true)) {
+                std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << "\ta switch occurs" << std::endl;
                 nbSwitched += 1;
             }
             else
-                std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << "\n";
+                std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << std::endl;
         } else
-            std::cout << "g=nan\tr=nan%\ts=" << _sDeviation << "\n";
+            std::cout << "g=nan\tr=nan%\ts=" << _sDeviation << std::endl;
     }
 }
 

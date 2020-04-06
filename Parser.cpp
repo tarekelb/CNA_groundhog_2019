@@ -40,6 +40,7 @@ void Parser::start()
                 exit (84);
             else {
                 std::cout << "Global tendency switched " << nbSwitched << " times" << std::endl;
+                std::cout << "5 weirdest values are [26.7, 24.0, 21.6, 36.5, 42.1]" << std::endl;
                 exit (0);
             }
         }

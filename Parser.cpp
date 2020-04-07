@@ -24,15 +24,17 @@ void Parser::rte() {
     if (this->_tempInput.size() <= this->_clock)
         return;
     
-    if (this->_tempInput[this->_tempInput.size() - this->_clock - 1] != 0 && this->_tempInput[this->_tempInput.size() - 1] != 0) {
+    if (this->_tempInput[this->_tempInput.size() - this->_clock - 1] != 0) {
         long double a = this->_tempInput[this->_tempInput.size() - this->_clock - 1];
         long double b = this->_tempInput[this->_tempInput.size() - 1];
         if (b > a) {
             this->_r = abs((int)(round((((b-a)/a) * 100))));
         } else
             this->_r = (int)(round((((b-a)/a) * 100)));
-        this->_checkFirst = true;
+    } else {
+        this->_r = 999.9;
     }
+    this->_checkFirst = true;
 }
 
 void Parser::start() 
@@ -75,7 +77,7 @@ void Parser::Result()
         GAvegerage();
         StandardDeviation();
         if (this->_checkFirst == true) {
-            if ((this->_rTmp != 0 && this->_r != 0 && this->_rTmp >= 0 && this->_r < 0 && this->_checkFirst == true) || ( this->_rTmp != 0 && this->_r != 0 && this->_rTmp < 0 && this->_r >= 0 && this->_checkFirst == true)) {
+            if ((this->_rTmp >= 0 && this->_r < 0 && this->_checkFirst == true) || (this->_rTmp < 0 && this->_r >= 0 && this->_checkFirst == true)) {
                 std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << "\ta switch occurs" << std::endl;
                 nbSwitched += 1;
             }

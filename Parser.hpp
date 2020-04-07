@@ -11,6 +11,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+
 #include <cmath>
 #include <iomanip>
 #include <cmath>
@@ -24,6 +26,7 @@ class Parser {
         void Result();
         void StandardDeviation();
         void GAvegerage();
+        void WeirdestValue();
     protected:
     private:
         bool _checkFirst;
@@ -33,7 +36,7 @@ class Parser {
         long double _r;
         long double _rTmp;
         std::vector <double> _tempInput;
-        std::vector <double> _weirdValue;
+        std::vector <std::pair<double, double>> _weirdValue;
         std::string _buff;
         long int nbSwitched;
         long double _sDeviation;

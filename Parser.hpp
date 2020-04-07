@@ -28,15 +28,15 @@ class Parser {
     private:
         bool _checkFirst;
         unsigned int _clock;
-        double _g;
-        double _s;
-        double _r;
-        double _rTmp;
+        long double _g;
+        long double _s;
+        long double _r;
+        long double _rTmp;
         std::vector <double> _tempInput;
         std::vector <double> _weirdValue;
         std::string _buff;
-        int nbSwitched;
-        double _sDeviation;
+        long int nbSwitched;
+        long double _sDeviation;
 };
 
 #endif /* !PARSER_HPP_ */

@@ -13,6 +13,7 @@ Parser::Parser(const int &clock)
     this->_r = 0;
     this->_rTmp = 0;
     this->_checkFirst = false;
+    nbSwitched = 0;
 }
 
 Parser::~Parser()
@@ -23,11 +24,15 @@ void Parser::rte() {
     if (this->_tempInput.size() <= this->_clock)
         return;
     
-    double a = this->_tempInput[this->_tempInput.size() - this->_clock - 1];
-    double b = this->_tempInput[this->_tempInput.size() - 1];
-
-    this->_r = (int)(round((((b-a)/a) * 100)));
-    this->_checkFirst = true;
+    if (this->_tempInput[this->_tempInput.size() - this->_clock - 1] != 0 && this->_tempInput[this->_tempInput.size() - 1] != 0) {
+        long double a = this->_tempInput[this->_tempInput.size() - this->_clock - 1];
+        long double b = this->_tempInput[this->_tempInput.size() - 1];
+        if (b > a) {
+            this->_r = abs((int)(round((((b-a)/a) * 100))));
+        } else
+            this->_r = (int)(round((((b-a)/a) * 100)));
+        this->_checkFirst = true;
+    }
 }
 
 void Parser::start() 
@@ -70,7 +75,7 @@ void Parser::Result()
         GAvegerage();
         StandardDeviation();
         if (this->_checkFirst == true) {
-            if ((this->_rTmp >= 0 && this->_r < 0 && this->_checkFirst == true) || (this->_rTmp < 0 && this->_r >= 0 && this->_checkFirst == true)) {
+            if ((this->_rTmp != 0 && this->_r != 0 && this->_rTmp >= 0 && this->_r < 0 && this->_checkFirst == true) || ( this->_rTmp != 0 && this->_r != 0 && this->_rTmp < 0 && this->_r >= 0 && this->_checkFirst == true)) {
                 std::cout << "g=" << _g << "\tr="<< this->_r << "%\ts=" << _sDeviation << "\ta switch occurs" << std::endl;
                 nbSwitched += 1;
             }
@@ -83,8 +88,8 @@ void Parser::Result()
 
 void Parser::StandardDeviation()
 {
-    double sum = 0;
-    double carrSum = 0;
+    long double sum = 0;
+    long double carrSum = 0;
 
     for (size_t a = _tempInput.size() - _clock; a < _tempInput.size(); a ++) {
         sum += _tempInput[a];
@@ -99,7 +104,7 @@ void Parser::StandardDeviation()
 
 void Parser::GAvegerage()
 {
-    double result = 0;
+    long double result = 0;
 
     for (size_t a = _tempInput.size() - (this->_clock + 1); a < _tempInput.size(); a += 1)
         if (_tempInput[a + 1] - _tempInput[a] > 0)

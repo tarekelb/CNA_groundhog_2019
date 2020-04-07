@@ -128,8 +128,8 @@ void Parser::WeirdestValue()
         average += _tempInput[a];
     }
     average /= this->_clock;
-    bh = average + (1.9 * this->_sDeviation);
-    bb = average - (1.9 * this->_sDeviation);
+    bh = average + (2 * this->_sDeviation);
+    bb = average - (2 * this->_sDeviation);
 
 
     if (bh - _tempInput[_tempInput.size() - 1] <= _tempInput[_tempInput.size() -1] - bb)
